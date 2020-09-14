@@ -6,7 +6,21 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+
 using namespace std;
+
+void drawTest(){
+	int width, height;
+	width = 500;
+	height = 500;
+	unsigned char* image = stbi_load("icon.png", &width, &height, 0, STBI_rgb_alpha);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	
+	stbi_image_free(image);
+	
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 
 int main(int argc, char const *argv[])
@@ -14,9 +28,17 @@ int main(int argc, char const *argv[])
 	GLFWwindow* window;
 	if (glfwInit())
 	{
-	    window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
+	    window = glfwCreateWindow(640, 640, "My Title", NULL, NULL);
+
+		if (!window)
+		{
+			glfwTerminate();
+			exit(1);
+		}
+
+	    glfwMakeContextCurrent(window);
 		GLFWimage images[1];
-		images[0].pixels = stbi_load("icon.png", &images[0].width, &images[0].height, 0, 4);;
+		images[0].pixels = stbi_load("icon.png", &images[0].width, &images[0].height, 0, 4);
 		 
 		glfwSetWindowIcon(window, 1, images);
 
@@ -35,11 +57,7 @@ int main(int argc, char const *argv[])
 		glfwSetCursor(window, cursor);
 
 
-		if (!window)
-		{
-			glfwTerminate();
-			exit(1);
-		}
+		drawTest();
 
 	}
 
