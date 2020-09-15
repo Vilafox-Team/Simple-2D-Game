@@ -1,1 +1,1 @@
-g++ __vft_ui.cpp -lglfw3 -ldl -lX11 -lGL -pthread -I./include -o build/__vft_ui
+g++ glad.c __vft_ui.cpp -lglfw3 -ldl -lX11 -lGL -pthread -I./include -o build/__vft_ui
